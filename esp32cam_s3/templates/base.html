@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Attendance System{% endblock %}</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+</head>
+<body>
+    <nav>
+        <span class="brand">Attendance System</span>
+        <a href="/" class="{{ 'active' if active=='dashboard' else '' }}">Dashboard</a>
+        <a href="/register" class="{{ 'active' if active=='register' else '' }}">Đăng ký thẻ</a>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

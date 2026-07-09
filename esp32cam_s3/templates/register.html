@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Đăng ký thẻ RFID{% endblock %}
+
+{% block content %}
+    <h1>Đăng ký tên cho mã thẻ</h1>
+    <div class="subtitle">Gán tên cho 1 mã UID RFID để hệ thống hiển thị đúng danh tính</div>
+
+    <form class="register-form" method="POST" action="/register">
+        <input type="text" name="uid" id="uidInput" placeholder="Mã thẻ (UID)" required>
+        <input type="text" name="name" placeholder="Họ và tên" required>
+        <button type="submit">Lưu</button>
+    </form>
+
+    {% if unregistered_uids %}
+    <div class="subtitle">Các mã thẻ đã quẹt nhưng chưa có tên (bấm để điền nhanh):</div>
+    <div style="margin-bottom: 24px;">
+        {% for uid in unregistered_uids %}
+        <span class="quick-uid" onclick="document.getElementById('uidInput').value='{{ uid }}'">{{ uid }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1 style="font-size: 18px;">Danh sách đã đăng ký ({{ persons|length }})</h1>
+    {% if persons %}
+    <table>
+        <tr>
+            <th>Tên</th>
+            <th>Mã thẻ (UID)</th>
+            <th>Ngày đăng ký</th>
+        </tr>
+        {% for p in persons %}
+        <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.uid }}</td>
+            <td>{{ p.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <div class="empty-note">Chưa đăng ký thẻ nào.</div>
+    {% endif %}
+{% endblock %}
