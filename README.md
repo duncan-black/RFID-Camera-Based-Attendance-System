@@ -6,7 +6,6 @@ Hệ thống điểm danh tự động kết hợp nhận diện thẻ RFID và 
 Hệ thống sử dụng **ESP32-S3-CAM** làm bộ xử lý trung tâm, giao tiếp với đầu đọc thẻ **RC522** để xác định danh tính và camera **OV2640** để chụp ảnh khuôn mặt. Dữ liệu (UID thẻ + ảnh) được gửi về server **Flask** để lưu trữ và hiển thị trên dashboard thời gian thực.
 
 ## 2. Tính năng nổi bật
-* **Firmware đa nhiệm:** Xử lý đồng thời Camera, RFID, WiFi và MQTT trên một vi điều khiển duy nhất.
 * **Kiến trúc Non-blocking:** Tách biệt các tác vụ nặng (chụp ảnh, truyền tải HTTP) để hệ thống luôn ổn định, không bị treo.
 * **Kết nối bảo mật:** Sử dụng MQTT qua TLS (HiveMQ Cloud) để giám sát trạng thái thiết bị từ xa.
 * **Backend đầy đủ:** Tích hợp sẵn Web Server (Flask) và Database (SQLite) để quản lý lịch sử điểm danh và đăng ký người dùng.
