@@ -9,8 +9,8 @@
  * Tools menu cần set:
  *   Board: ESP32S3 Dev Module
  *   Flash Size: 16MB
- *   Partition Scheme: Huge APP hoặc 16M Flash
- *   PSRAM: OPI PSRAM   <-- BẮT BUỘC cho N16R8
+ *   Partition Scheme:  16M Flash
+ *   PSRAM: OPI PSRAM 
  */
 
 #include <WiFi.h>
@@ -23,9 +23,8 @@
 #include "esp_camera.h"
 #include "camera_pins.h"
 
-// ================== CẤU HÌNH RFID (RC522) ==================
-// ⚠️ Kiểm tra lại các chân này đúng với board thực tế bạn đang dùng.
-// Camera đã chiếm: 4,5,6,7,8,9,10,11,12,13,15,16,17,18 -- KHÔNG dùng lại các chân này.
+//CẤU HÌNH RFID (RC522) 
+
 #define RFID_SS_PIN   1
 #define RFID_SCK_PIN  2
 #define RFID_MOSI_PIN 3
@@ -56,10 +55,10 @@ const char* MQTT_TOPIC_COMMAND = "esp32cam_attendance/command";
 const char* MQTT_TOPIC_STATUS  = "esp32cam_attendance/status";
 const char* MQTT_TOPIC_RESULT  = "esp32cam_attendance/result";
 
-// ================== CẤU HÌNH SERVER 
+//  CẤU HÌNH SERVER 
 const char* SERVER_URL = "http://10.79.213.132:5000/upload";
 
-// ================== BIẾN TOÀN CỤC 
+// BIẾN TOÀN CỤC 
 WiFiClientSecure espClient;
 PubSubClient     mqttClient(espClient);
 
@@ -93,10 +92,10 @@ bool initCamera() {
     config.ledc_channel = LEDC_CHANNEL_0;
 
     config.pixel_format = PIXFORMAT_JPEG;
-    config.frame_size   = FRAMESIZE_SVGA;   // 800x600, nhẹ, đủ cho nhận diện
+    config.frame_size   = FRAMESIZE_SVGA;   // 800x600
     config.jpeg_quality = 12;
 
-    config.fb_count     = 1;                // chỉ chụp theo lệnh, không cần 2
+    config.fb_count     = 1;                // chỉ chụp 
     config.fb_location  = CAMERA_FB_IN_PSRAM;
     config.grab_mode    = CAMERA_GRAB_WHEN_EMPTY;
 
@@ -225,9 +224,9 @@ void processCapture(const String& uid) {
     esp_camera_fb_return(fb);
 }
 
-// ===================================================
-//   MQTT CALLBACK — chỉ set flag, KHÔNG xử lý nặng
-// ===================================================
+
+//   MQTT CALLBACK — chỉ set flag
+
 void mqttCallback(char* topic, byte* payload, unsigned int length) {
     String message;
     message.reserve(length + 1);
@@ -260,9 +259,9 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
     }
 }
 
-// ===================================================
-//              KẾT NỐI / TÁI KẾT NỐI MQTT
-// ===================================================
+//
+//KẾT NỐI / TÁI KẾT NỐI MQTT
+// 
 bool reconnectMqtt() {
     // esp_random() dùng RNG phần cứng của ESP32, không cần seed
     uint32_t random_num = (esp_random() % 9000) + 1000;
@@ -295,9 +294,7 @@ bool reconnectMqtt() {
     }
 }
 
-// ===================================================
-//                       SETUP
-// ===================================================
+
 void setup() {
     Serial.begin(115200);
     delay(1000);
@@ -343,9 +340,9 @@ void setup() {
     Serial.println("[SYSTEM] Ready, waiting for MQTT commands...\n");
 }
 
-// ===================================================
+
 //                        LOOP
-// ===================================================
+
 void loop() {
     // Giữ kết nối WiFi (không bắt buộc nhưng an toàn)
     if (WiFi.status() != WL_CONNECTED) {
