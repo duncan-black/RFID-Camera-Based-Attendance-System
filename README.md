@@ -1,4 +1,4 @@
-# Hệ thống Điểm danh Thông minh (ESP32-S3-CAM + RFID)
+# RFID-Camera-Based-Attendance-System(ESP32-S3-CAM + RFID)
 
 Hệ thống điểm danh tự động kết hợp nhận diện thẻ RFID và xác thực bằng hình ảnh. Khi người dùng quẹt thẻ, thiết bị sẽ tự động chụp ảnh và gửi dữ liệu về server để lưu trữ và hiển thị.
 
